@@ -23,74 +23,57 @@
     <ul class="breadcrumb">
         <li>
             <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="#">Home</a>
+            <a href="#">Silabos</a>
         </li>
-        <li class="active">Dashboard</li>
+        <li class="active">Visualizar Silabos</li>
     </ul><!-- /.breadcrumb -->
-
-    <div class="nav-search" id="nav-search">
-        <form class="form-search">
-            <span class="input-icon">
-                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-                <i class="ace-icon fa fa-search nav-search-icon"></i>
-            </span>
-        </form>
-    </div><!-- /.nav-search -->
 </div>
 <div class="page-content">
     <div class="container-fluid">
+        @*<center>
+                <h3>FACULTAD DEL JEFE DE DEPARTAMENTO</h3>
+                <h4>HABILITAR SILABUS</h4>
+            </center>*@
         <div class="form-group row">
-            <center>
-                <h1>FACULTAD DEL JEFE DE DEPARTAMENTO</h1>
-                <h2>HABILITAR SILABUS</h2>
-            </center>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-2 text-right">ESCUELA PROFESIONAL:</label>
+            <label class="col-md-2 label-sm">ESCUELA PROFESIONAL:</label>
             <div class="col-md-4">
-                <input class="form-control" type="text" placeholder="ESCUELA PROFESIONAL" />
+                <input class="form-control input-sm" type="text" />
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-2 text-right">CODIGO DOCENTE:</label>
+            <label class="col-md-2 label-sm">CODIGO DOCENTE:</label>
             <div class="col-md-2">
-                <input class="form-control" type="text" placeholder="CODIGO DOCENTE" />
+                <input class="form-control input-sm" type="text" />
             </div>
-            <label class="col-md-2 text-right">DOCENTE:</label>
+            <label class="col-md-1 label-sm">DOCENTE:</label>
             <div class="col-md-4">
-                <input class="form-control" type="text" placeholder="DOCENTE" />
+                <input class="form-control input-sm" type="text" />
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-md-2 text-right">CURSO:</label>
+            <label class="col-md-2 label-sm">CURSO:</label>
             <div class="col-md-2">
-                <input class="form-control input-sm" type="text" placeholder="CURSO" />
+                <input class="form-control input-sm" type="text" />
             </div>
-            <label class="col-md-2 text-right label-sm">AÑO-SEMESTE:</label>
+            <label class="col-md-1 label-sm">AÑO-SEMESTE:</label>
             <div class="col-md-4">
                 <select class="form-control input-sm">
                     <option>AÑO-SEMESTRE</option>
                 </select>
             </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <button class="btn btn-sm btn-info" onclick="buscarSilabos()">
+                    <i class="glyphicon glyphicon-search"></i>
+                    &nbsp;
                     Buscar
                 </button>
             </div>
             <div class="col-md-4">
             </div>
         </div>
-
-        <hr />
         <div class="row">
-            <div class="col-md-12">
-                <table id="tblSilabos" class="table table-striped table-bordered" style="width:100%"></table>
-            </div>
+            <table id="tblSilabos" class="table table-sm table-bordered" style="width:100%"></table>
         </div>
     </div>
 
@@ -98,7 +81,8 @@
         var tblSilabos;
         $(document).ready(function () {
             tblSilabos = $('#tblSilabos').DataTable({
-                dom: '<lBf<t>ip>',
+                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+                dom: 'rtip',
                 scrollX: true,
                 scrollY: true,
                 ajax: {
@@ -109,9 +93,19 @@
                     }
                 },
                 columns: [
-                    { title: "DOCENTE", data: "Estado", visible: true },
-                    { title: "CURSO", data: "Estado", visible: true },
-                    { title: "ESTADO", data: "Estado", visible: true }
+                    { title: "DOCENTE", data: "Docente", visible: true },
+                    { title: "CURSO", data: "Curso", visible: true },
+                    { title: "ESTADO", data: "Estado", visible: true },
+                    {
+                        title: "ACCIONES",
+                        width: "10%",
+                        render: function (data, type, full, meta) {
+                            var celda = '<center><button class="btn btn-sm btn-default"><i class="glyphicon glyphicon-floppy-disk"></i></button>&nbsp';
+                            celda += '<button class="btn btn-sm btn-default"><i class="glyphicon glyphicon-remove"></i></button></center>';
+                            return celda;
+                        },
+                        visible: true
+                    }
                 ],
                 serverSide: false,
                 deferLoading: 0,

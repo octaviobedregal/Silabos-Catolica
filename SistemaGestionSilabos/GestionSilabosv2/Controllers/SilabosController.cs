@@ -1,4 +1,5 @@
-﻿using GestionSilabos.Models;
+﻿using GestionSilabos.Helpers;
+using GestionSilabos.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace GestionSilabos.Controllers
         [HttpPost]
         public JsonResult ListarSilabos()
         {
-            List<SilaboModel> silabos = handler.ListarSilabos();
+            List<SilaboHelper> silabos = handler.ListarSilabos();
             return Json(new { data = silabos });
         }
 
